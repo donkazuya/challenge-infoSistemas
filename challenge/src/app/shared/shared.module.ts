@@ -5,6 +5,7 @@ import { CarListComponent } from './components/car-list/car-list.component';
 import { CardComponent } from './components/card/card.component';
 import { DetailsModalComponent } from './components/details-modal/details-modal.component';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -17,7 +18,8 @@ import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
   ],
   imports: [
     CommonModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    HttpClientModule
   ],
   exports: [
     HeaderComponent,

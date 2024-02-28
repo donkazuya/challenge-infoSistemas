@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataResponse } from '../../models/interface/DataResponse';
-import { dataVehicle } from '../../models/data/data';
+import { Subject, takeUntil } from 'rxjs';
+import { CrudService } from '../../shared/services/crud.service';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,37 @@ import { dataVehicle } from '../../models/data/data';
 })
 
 export class HomeComponent implements OnInit  {
-  dataVehicles: Array<DataResponse> = dataVehicle
+  dataVehicles: Array<DataResponse> = []
+  private destroy$ = new Subject<void>()
+
+  constructor(private service: CrudService) {}
   
   ngOnInit() {
     console.log(this.dataVehicles);
+    this.getAllVehicles()
+  }
+
+  getAllVehicles() {
+    this.service
+      .getCarList()
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (response) => {
+          if(response.length > 0) {
+            this.dataVehicles = response
+            console.log(response);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          
+        }
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

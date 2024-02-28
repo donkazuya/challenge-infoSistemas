@@ -17,5 +17,28 @@
 
 body {
   font-family: "Figtree", sans-serif;
-  background-color: var(--white);
+  background-image: url('./assets/png/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue rgba(0, 0, 0, 0);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 20px;
+  border: 3px solid rgba(0, 0, 0, 0);
 }

@@ -5,6 +5,7 @@ import { PagesRoutes } from './pages.routing.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -16,6 +17,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   imports: [
     CommonModule,
     SharedModule,
+    HttpClientModule,
     RouterModule.forChild(PagesRoutes)
   ],
   providers: [

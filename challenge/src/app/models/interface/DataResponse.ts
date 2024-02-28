@@ -1,5 +1,5 @@
 export interface DataResponse {
-  id: number;
+  id: number | string;
   placa: string;
   chassi: string;
   renavam: number;
