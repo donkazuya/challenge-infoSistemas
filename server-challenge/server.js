@@ -4,7 +4,7 @@ const fs = require('fs');
 // create our express app
 const app = express()
 const routes = require('./src/router/router')
-const port = 3333
+const PORT = process.env.PORT || 3333;
 
 const cors = require('cors');
 app.use(cors({
@@ -19,7 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({extended: true}))
 
 app.use('/', routes)
+
 //start server
-app.listen(port, ()=>{
-    console.log(`listening at port:${port}`)
+app.listen(PORT, ()=>{
+    console.log(`listening at port:${PORT}`)
 }) 
+
+module.exports = app
