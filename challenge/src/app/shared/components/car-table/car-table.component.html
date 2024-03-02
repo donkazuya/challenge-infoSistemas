@@ -1,0 +1,214 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+
+  <div class="flex">
+    <div class="col-12">
+      <p-card
+        styleClass="shadow-3 m-5 py-4 px-2"
+        header="Lista de veículos"
+      >
+        <p-table
+        #carTable
+        [value]="carList"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [tableStyle]="{'min-width' : '65rem'}"
+        [(selection)]="carSelected"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+        styleClass="p-datatable-striped"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+        
+              <th pSortableColumn="modelo">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Modelo
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="modelo"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="modelo"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+        
+              <th pSortableColumn="marca">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Marca
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="marca"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="marca"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+      
+              <th pSortableColumn="placa">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Placa
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="placa"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="placa"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+      
+              <th pSortableColumn="ano">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Ano
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="ano"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="ano"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+      
+              <th pSortableColumn="chassi">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Chassi
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="chassi"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="chassi"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+      
+              <th pSortableColumn="renavam">
+                <div class="flex justify-content-between align-items-center">
+        
+                  <div class="flex justify-content-between align-items-center">
+                    Renavam
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon field="renavam"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="renavam"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+        
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+
+              <th>
+                <div class="flex justify-content-center">
+                  <p-button
+                    styleClass="p-button-info"
+                    icon="pi pi-plus"
+                    label="Adicionar"
+                    pTooltip="Adicionar Veículo"
+                    tooltipPosition="top"
+                    (onClick)="handleCarListEvent(addCarListEvent)"
+                  >
+  
+                  </p-button>
+                </div>
+              </th>
+        
+            </tr>
+          </ng-template>
+      
+          <ng-template pTemplate="body" let-carList>
+            <tr>
+              <td>{{carList.modelo}}</td>
+              <td>{{carList.marca}}</td>
+              <td>{{carList.placa}}</td>
+              <td>{{carList.ano}}</td>
+              <td>{{carList.chassi}}</td>
+              <td>{{carList.renavam}}</td>
+              <td>
+                <div class="flex my-3 justify-content-center gap-3 align-content-center align-items-center">
+                  <button
+                    pButton
+                    pRipple
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-warning width-custom"
+                    pTooltip="Editar Cadastro"
+                    tooltipPosition="top"
+                    (click)="handleCarListEvent(editCarListEvent, carList?.id)"></button>
+      
+                  <button
+                    pButton
+                    pRipple
+                    icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger width-custom"
+                    pTooltip="Remover Cadastro"
+                    tooltipPosition="top"
+                    (click)="handleDeleteCar(carList?.id, carList?.modelo)"
+                  ></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        
+        </p-table>
+      </p-card>
+    </div>
+  </div>
+  
+

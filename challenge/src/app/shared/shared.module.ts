@@ -1,32 +1,54 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
-import { CarListComponent } from './components/car-list/car-list.component';
-import { CardComponent } from './components/card/card.component';
-import { DetailsModalComponent } from './components/details-modal/details-modal.component';
-import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
+
 import { HttpClientModule } from '@angular/common/http';
+import { CarTableComponent } from './components/car-table/car-table.component';
+
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputMaskModule } from 'primeng/inputmask'
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { CarFormComponent } from './components/car-form/car-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    CarListComponent,
-    CardComponent,
-    DetailsModalComponent
+    CarTableComponent,
+    CarFormComponent
   ],
   imports: [
     CommonModule,
-    ModalModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    //PrimeNG
+    CardModule,
+    ButtonModule,
+    TableModule,
+    InputMaskModule,
+    InputTextModule,
+    DynamicDialogModule,
+    ConfirmDialogModule,
+    TooltipModule
   ],
   exports: [
     HeaderComponent,
-    CarListComponent
+    CarTableComponent
   ],
   providers: [
-    BsModalRef
+    MessageService,
+    ConfirmationService,
+    DialogService
   ]
 })
 export class SharedModule { }

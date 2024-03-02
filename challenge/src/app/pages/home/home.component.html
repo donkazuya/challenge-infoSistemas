@@ -1,3 +1,19 @@
+<p-toast
+  position="top-right"
+  [showTransformOptions]="'translateY(100%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(100%)'"
+  [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"
+  
+></p-toast>
+
 <app-header></app-header>
 
-<app-car-list [carlist]="dataVehicles"></app-car-list>
+<app-car-table 
+  [carList]="dataVehicles"
+  (carListEvent)="handleCarListAction($event)"
+  (deleteCarListEvent)="handleDeleteProductAction($event)"
+></app-car-table>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

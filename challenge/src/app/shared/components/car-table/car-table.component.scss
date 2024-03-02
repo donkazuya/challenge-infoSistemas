@@ -1,0 +1,12 @@
+::ng-deep {
+  .p-datatable {
+    .p-datatable-thead > tr > th, .p-datatable-tbody > tr > td {
+        padding-left: 10px !important;
+    }
+  }
+}
+
+.width-custom {
+  width: 2rem;
+  height: 2rem;
+}

@@ -4,8 +4,15 @@ import { HomeComponent } from './home/home.component';
 import { PagesRoutes } from './pages.routing.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+
 import { HttpClientModule } from '@angular/common/http';
+
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
+
 
 
 
@@ -18,10 +25,15 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     SharedModule,
     HttpClientModule,
-    RouterModule.forChild(PagesRoutes)
+    RouterModule.forChild(PagesRoutes),
+    //PrimeNG
+    ConfirmDialogModule,
+    ToastModule,
   ],
   providers: [
-    BsModalRef
+    MessageService,
+    ConfirmationService,
+    DialogService
   ]
 })
 export class PagesModule { }

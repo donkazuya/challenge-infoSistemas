@@ -1,0 +1,124 @@
+<div *ngIf="carListAction?.event?.action === addCarListAction">
+  <form [formGroup]="addCarForm" (ngSubmit)="handleSubmitAddCarList()">
+    <div class="card flex flex-column justify-content-around gap-3">
+      <div class="flex flex-wrap justify-content-around gap-3">
+        <input 
+            pInputText
+            placeholder="Modelo"
+            formControlName="modelo"
+            
+        />
+    
+        <input 
+          pInputText
+          placeholder="Marca"
+          formControlName="marca"
+          
+        />
+    
+        <p-inputMask 
+          formControlName="placa"
+          mask="aaa-9*99" 
+          placeholder="Placa"
+          
+          [style]="{'text-transform': 'uppercase'}"
+        ></p-inputMask>
+
+      </div>
+      <div class="flex flex-wrap justify-content-around gap-3">
+        <input 
+          pInputText
+          placeholder="Ano"
+          formControlName="ano"
+          
+        />
+    
+        <input 
+          pInputText
+          placeholder="Chassi"
+          formControlName="chassi"
+          [style]="{'text-transform': 'uppercase'}"
+          
+        />
+    
+        <input 
+          pInputText
+          placeholder="Renavam"
+          formControlName="renavam"
+        />
+
+      </div>
+  
+
+      
+
+    </div>
+    <div class="flex flex-row justify-content-around align-content-center align-items-center my-2">
+      <p-button
+        [disabled]="!addCarForm.valid"
+        type="submit"
+        label="Concluir"
+        
+      ></p-button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="carListAction?.event?.action === editCarListAction">
+  <form [formGroup]="editCarForm" (ngSubmit)="handleSubmitEditCarList()">
+    <div class="card flex flex-column justify-content-around gap-3">
+      <div class="flex flex-wrap justify-content-around gap-3">
+        <input 
+            pInputText
+            placeholder="Modelo"
+            formControlName="modelo"
+        />
+    
+        <input 
+          pInputText
+          placeholder="Marca"
+          formControlName="marca"
+        />
+    
+        <p-inputMask 
+          formControlName="placa"
+          mask="aaa-9*99" 
+          placeholder="Placa"
+          [style]="{'text-transform': 'uppercase'}"
+        ></p-inputMask>
+      </div>
+      
+      <div class="flex flex-wrap justify-content-around gap-3">
+        <input 
+          pInputText
+          placeholder="Ano"
+          formControlName="ano"
+        />
+    
+        <input 
+          pInputText
+          placeholder="Chassi"
+          formControlName="chassi"
+          [style]="{'text-transform': 'uppercase'}"
+        />
+    
+        <input 
+          pInputText
+          placeholder="Renavam"
+          formControlName="renavam"
+        />
+      </div>
+
+      
+
+    </div>
+    <div class="flex flex-row justify-content-around align-content-center align-items-center my-2">
+      <p-button
+        [disabled]="!editCarForm.valid"
+        type="submit"
+        label="Concluir"
+        
+      ></p-button>
+    </div>
+  </form>
+</div>

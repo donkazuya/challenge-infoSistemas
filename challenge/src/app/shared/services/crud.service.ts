@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { DataResponse } from '../../models/interface/DataResponse';
+import { DataRequest, DataResponse } from '../../models/interface/DataResponse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
@@ -26,7 +26,7 @@ export class CrudService {
     )
   }
 
-  createItemCarList(data:any) : Observable<DataResponse> {
+  createItemCarList(data:DataRequest) : Observable<DataResponse> {
     return this.http.post<DataResponse>(
       `${this.API_URL}/addCar`,
       data,
@@ -34,7 +34,7 @@ export class CrudService {
     )
   }
 
-  editItemCarList(data:any) : Observable<void> {
+  editItemCarList(data:DataRequest) : Observable<void> {
     return this.http.put<void>(
       `${this.API_URL}/editCar/${data.id}`,
       data,
@@ -42,9 +42,9 @@ export class CrudService {
     )
   }
 
-  deleteItemCar(data: any): Observable<void> {
-    return this.http.delete<void>(
-      `${this.API_URL}/deleteCar/${data.id}`,
+  deleteItemCar(data: string): Observable<boolean> {
+    return this.http.delete<boolean>(
+      `${this.API_URL}/deleteCar/${data}`,
       this.httpOptions
     )
   }

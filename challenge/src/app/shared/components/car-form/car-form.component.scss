@@ -1,0 +1,7 @@
+::ng-deep {
+  .p-inputmask, .p-inputtext {
+    &::placeholder {
+      text-transform: capitalize !important;
+    }
+  }
+}
