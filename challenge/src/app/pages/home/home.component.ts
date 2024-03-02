@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { DataResponse, DeleteCarEvent, EventAction } from '../../models/interface/DataResponse';
 import { CarFormComponent } from '../../shared/components/car-form/car-form.component';
 import { CrudService } from '../../shared/services/crud.service';
+import { CarListEvent } from '../../models/enums/carList/CarListEvents';
 
 @Component({
   selector: 'app-home',
@@ -35,19 +36,26 @@ export class HomeComponent implements OnInit, OnDestroy  {
         takeUntil(this.destroy$)
       ).subscribe({
         next: (response) => {
-          if(response.length > 0) {
-            this.dataVehicles = response
-          }
+          response.length > 0 ?
+            this.dataVehicles = response :
+            this.dataVehicles = []
+          
         },
       })
   }
 
   handleCarListAction(event: EventAction) : void {
     if(event) {
-      this.ref = this.dialogService.open(
+      this.addCarList(event)
+    }
+  }
+
+  addCarList(event?: EventAction) : void {
+    const hasEvent = event ? event : {action: CarListEvent.ADD_CARLIST_EVENT}
+    this.ref = this.dialogService.open(
         CarFormComponent,
         {
-          header: event?.action,
+          header: hasEvent?.action,
           width: '70%',
           contentStyle: {
             overflow: 'auto',
@@ -55,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy  {
             maximizable: true,
           },
           data: {
-            event: event,
+            event: hasEvent,
             carListData: this.dataVehicles
           }
         }
@@ -66,8 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy  {
         .subscribe({
           next: () => this.getAllVehicles()
         })
-      
-    }
   }
 
   handleDeleteProductAction(event: DeleteCarEvent) : void {

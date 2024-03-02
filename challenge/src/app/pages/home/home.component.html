@@ -10,10 +10,29 @@
 
 <app-header></app-header>
 
-<app-car-table 
-  [carList]="dataVehicles"
-  (carListEvent)="handleCarListAction($event)"
-  (deleteCarListEvent)="handleDeleteProductAction($event)"
-></app-car-table>
+@if (dataVehicles.length > 0) {
+  <app-car-table 
+    [carList]="dataVehicles"
+    (carListEvent)="handleCarListAction($event)"
+    (deleteCarListEvent)="handleDeleteProductAction($event)"
+  ></app-car-table>
+} @else {
+  <p-card styleClass="shadow-3 m-5 py-4 px-2">
+    <div class="flex flex-column align-items-center mx-4 gap-3">
+      <h2>Nenhum Veículo Registrado</h2>
+      <p-button
+        styleClass="p-button-info"
+        icon="pi pi-plus"
+        label="Adicionar"
+        pTooltip="Adicionar Veículo"
+        tooltipPosition="top"
+        (onClick)="addCarList()"
+      >
+  
+      </p-button>
+    </div>
+    
+  </p-card>
+}
 
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

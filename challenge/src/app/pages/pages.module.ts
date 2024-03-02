@@ -11,6 +11,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
 
 
 
@@ -28,6 +29,7 @@ import { ToastModule } from 'primeng/toast';
     RouterModule.forChild(PagesRoutes),
     //PrimeNG
     ConfirmDialogModule,
+    CardModule,
     ToastModule,
   ],
   providers: [
