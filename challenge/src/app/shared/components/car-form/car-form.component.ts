@@ -86,6 +86,8 @@ export class CarFormComponent implements OnInit, OnDestroy {
               })
             }
 
+            this.addCarForm.reset()
+
             this.ref.close()
           },
           error: () => {
@@ -99,7 +101,7 @@ export class CarFormComponent implements OnInit, OnDestroy {
         })
     }
 
-    this.addCarForm.reset()
+    
   }
 
   handleSubmitEditCarList() : void {
@@ -140,8 +142,6 @@ export class CarFormComponent implements OnInit, OnDestroy {
               detail: 'Erro ao editar cadastro!',
               life: 2500
             });
-
-            this.editCarForm.reset();
           }
         })
     }
