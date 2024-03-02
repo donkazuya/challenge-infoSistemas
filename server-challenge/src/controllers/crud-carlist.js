@@ -1,6 +1,7 @@
 const express = require("express")
 const carListRouter = express.Router();
 const fs = require('fs');
+const { checkHasBodyParams, checkHasRouterParams, returnError } = require("../utils/checkHasParams");
 
 const pathDb = process.env.NODE_ENV === 'test' ? '../../data/db.json' : './data/db.json'
 
@@ -14,19 +15,27 @@ const writeFile = (content) => {
   fs.writeFileSync(pathDb, updateFile, 'utf-8')
 }
 
-carListRouter.get('/carList', (req, res) => {
+carListRouter.get('/carList', (_, res) => {
   const content = readFile()
   res.status(200).json(content)
 })
 
 carListRouter.post('/addCar', (req, res) => {
-  const {placa, chassi, renavam, modelo, marca, ano} = req.body
-  const currentContent = readFile()
-  const id = process.env.NODE_ENV === 'test' ? 'test' : Math.random().toString(32).substring(2, 9)
 
-  currentContent.push({id, placa, chassi, renavam, modelo, marca, ano})
-  writeFile(currentContent)
-  res.status(201).send({placa, chassi, renavam, modelo, marca, ano})
+  const {placa, chassi, renavam, modelo, marca, ano} = req.body
+  const hasBodyParams = checkHasBodyParams(placa, chassi, renavam, modelo, marca, ano)
+
+  if(!hasBodyParams) {
+    returnError('Parametros inválidos', 400, res)
+  } else {
+    const currentContent = readFile()
+    const id = process.env.NODE_ENV === 'test' ? 'test' : Math.random().toString(32).substring(2, 9)
+  
+    currentContent.push({id, placa, chassi, renavam, modelo, marca, ano})
+    writeFile(currentContent)
+    res.status(201).send({placa, chassi, renavam, modelo, marca, ano})
+  }
+
 })
 
 carListRouter.put('/editCar/:id', (req, res) => {
@@ -34,29 +43,43 @@ carListRouter.put('/editCar/:id', (req, res) => {
   const { placa, chassi, renavam, modelo, marca, ano } = req.body
   const currentContent = readFile()
 
-  const selectedItem = currentContent.findIndex((item) => item.id === id)
+  const hasID = checkHasRouterParams(id)
+  const hasBodyParams = checkHasBodyParams(...req.body)
 
-  const { id: cId, placa: cPlaca, chassi: cChassi, renavam: cRenavam, modelo: cModelo, marca: cMarca, ano: cAno } = currentContent[selectedItem]  
-
-  const newObject = {
-    id: cId,
-    placa: placa? placa : cPlaca,
-    chassi: chassi? chassi : cChassi,
-    renavam: renavam? renavam : cRenavam,
-    modelo: modelo? modelo : cModelo,
-    marca: marca? marca : cMarca,
-    ano: ano? ano : cAno
+  if(!hasID && !hasBodyParams) {
+    returnError('Parametros inválidos', 400, res)
+  } else {
+    const selectedItem = currentContent.findIndex((item) => item.id === id)
+  
+    const { id: cId, placa: cPlaca, chassi: cChassi, renavam: cRenavam, modelo: cModelo, marca: cMarca, ano: cAno } = currentContent[selectedItem]  
+  
+    const newObject = {
+      id: cId,
+      placa: placa? placa : cPlaca,
+      chassi: chassi? chassi : cChassi,
+      renavam: renavam? renavam : cRenavam,
+      modelo: modelo? modelo : cModelo,
+      marca: marca? marca : cMarca,
+      ano: ano? ano : cAno
+    }
+  
+    
+    currentContent[selectedItem] = newObject
+    writeFile(currentContent)
+  
+    res.status(200).send(newObject)
   }
 
-  
-  currentContent[selectedItem] = newObject
-  writeFile(currentContent)
-
-  res.status(200).send(newObject)
 })
 
 carListRouter.delete('/deleteCar/:id', (req, res) => {
   const { id } = req.params
+
+  const hasID = checkHasRouterParams(id)
+
+  if (!hasID) {
+    returnError('Parametros inválidos', 400, res)
+  }
 
   const currentContent = readFile()
   const selectedItem = currentContent.findIndex((item) => item.id === id)
@@ -66,5 +89,7 @@ carListRouter.delete('/deleteCar/:id', (req, res) => {
   writeFile(currentContent)
   res.send(true)
 })
+
+
 
 module.exports = carListRouter
